@@ -1,7 +1,7 @@
 package es.codeurjc.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,13 +19,22 @@ public class CalculatorParserTest {
 
     @ParameterizedTest
     @ValueSource(strings = { "1", "2", "3" })
-    public void test1to3(String input) {
+    public void testSingleNumbers(String input) {
         assertEquals(Integer.parseInt(input), calculator.parse(input));
     }
 
     @ParameterizedTest
-    @CsvSource({"1+1, 2" , "2+3, 5" , "2+3+4, 9" , "1+2+3+4, 10"})
-    public void test4to6(String expression, int expected) {
+    @CsvSource({ "1+1, 2", "2+3, 5", "2+3+4, 9", "1+2+3+4, 10" })
+    public void testSums(String expression, int expected) {
         assertEquals(expected, calculator.parse(expression));
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "A", "B", "k", "HoLa", "1 + A" })
+    public void testInvalidExpressions(String expression) {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> calculator.parse(expression));
+        assertEquals("Invalid expression", exception.getMessage());
+    }
+
 }
