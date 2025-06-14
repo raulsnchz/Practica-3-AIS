@@ -588,26 +588,7 @@ public int parse(String expression) {
 ![Pasa](Capturas/test11.png "Pasa")
 
 **EJ11. Refactorización**
-> Vamos a unificar el caso "HoLa" dentro de la expresión existente ([a-zA-Z]+) que valida si la entrada contiene únicamente letras. Esta refactorización la hacemos para mantener el código simple y mantenible, evitando tener multiples ifs. En los tests simplemente metemos el nuevo caso dentro del test parametrizado.
-
-```java
-public int parse(String expression) {
-    if (expression.matches("[a-zA-Z]+")) {
-        throw new IllegalArgumentException("Invalid expression");
-    }
-    String[] tokens = expression.split("\\+");
-    int result = 0;
-    for (String token : tokens) {
-        result += Integer.parseInt(token.trim());
-    }
-    return result;
-}
-```
-**EJ11. Captura de que TODOS los tests PASAN tras la refactorización**
-
-![Pasa](Capturas/test8to11.png "Pasa")
-
-
+> No es necesario.
 
 <br>
 
@@ -627,7 +608,9 @@ public void test12(){
 
 **EJ12. Mensaje del test añadido que NO PASA**
 
+```log
 org.opentest4j.AssertionFailedError: expected: <Invalid expression> but was: <For input string: "A">
+```
 
 **EJ12. Código mínimo para que el test pase**
 
@@ -635,7 +618,9 @@ Metemos el if para el nuevo caso.
 
 ```java
 public int parse(String expression) {
-    if (expression.matches("[a-zA-Z]+")) {
+    if (expression.matches("[a-zA-Z]")) {
+        throw new IllegalArgumentException("Invalid expression");
+    } else if (expression == "HoLa") {
         throw new IllegalArgumentException("Invalid expression");
     } else if (expression == "1 + A") {
         throw new IllegalArgumentException("Invalid expression");
@@ -654,7 +639,8 @@ public int parse(String expression) {
 ![Pasa](Capturas/test12.png "Pasa")
 
 **EJ12. Refactorización**
-> Se ha eliminado la condición específica para "1 + A" y se ha reemplazado por una validación más general y robusta, que asegura que todos los tokens separados por + sean numéricos. Eliminamos código hardcodeado que no escala ni es mantenible.
+> Vamos a eliminar el código duplicado y añadir las funcinalidades necesarias de forma que el código sea sencillo y mantenible. 
+
 ```java
 public int parse(String expression) {
     if (expression.matches("[a-zA-Z]+")) {
@@ -681,3 +667,5 @@ public int parse(String expression) {
 
 
 <br>
+
+
