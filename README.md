@@ -1152,7 +1152,7 @@ public int parse(String expression) {
 ![Pasa](Capturas/test19.png "Pasa")
 
 **EJ19. Refactorización**
-> Como ya hemos duplicado codigo 3 veces, procedemos a refactorizar el método, extrayendo el código duplicado y añadiendo la funcionalidad mixta de sumar y restar. En cuanto a los test, vamos a meter un "@beforeEach" y vamos a crear un test parametrizado para los casos de uso de las sumas.
+> Como ya hemos duplicado codigo 3 veces, procedemos a refactorizar el método, extrayendo el código duplicado y añadiendo la funcionalidad mixta de sumar y restar. En cuanto a los test vamos a crear un test parametrizado para los casos de uso de las operaciones mixtas.
 
 ```java
 public int parse(String expression) {
