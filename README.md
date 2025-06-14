@@ -952,3 +952,327 @@ public void testSubs(String expression, int expected) {
 
 
 <br>
+
+
+## Ejemplo 17
+
+**INPUT y OUTPUT**: "7+1-5" -> "3"
+
+**EJ17. Código de test**
+```java
+@Test
+public void test17(){
+    CalculatorParser parser = new CalculatorParser();
+    assertEquals(parser.parse("7+1-5"), 3);
+}
+```
+
+**EJ17. Mensaje del test añadido que NO PASA**
+
+```log
+java.lang.NumberFormatException: For input string: "7+1"
+```
+
+**EJ17. Código mínimo para que el test pase**
+
+Se añade un if con el caso.
+
+```java
+public int parse(String expression) {
+    if(expression.equals("7+1-5")){
+        return 3;
+    }
+    if (expression.matches("[a-zA-Z]+")) {
+        throw new IllegalArgumentException("Invalid expression");
+    }
+
+    if (expression.contains("-")) {
+        String[] tokens = expression.split("-");
+        int result = Integer.parseInt(tokens[0].trim());
+        for (int i = 1; i < tokens.length; i++) {
+            result -= Integer.parseInt(tokens[i].trim());
+        }
+        return result;
+    }
+
+    String[] tokens = expression.split("\\+");
+    int result = 0;
+    for (String token : tokens) {
+        String trimmed = token.trim();
+        if (!trimmed.matches("\\d+")) {
+            throw new IllegalArgumentException("Invalid expression");
+        }
+        result += Integer.parseInt(trimmed);
+    }
+    return result;
+}
+```
+
+**EJ17. Captura de que TODOS los test PASAN**
+
+![Pasa](Capturas/test17.png "Pasa")
+
+**EJ17. Refactorización**
+> No es necesaria.
+
+
+
+<br>
+
+
+## Ejemplo 18
+
+**INPUT y OUTPUT**: "9-5+4" -> "8"
+
+**EJ18. Código de test**
+```java
+@Test
+public void test18(){
+    CalculatorParser parser = new CalculatorParser();
+    assertEquals(parser.parse("9-5+4"), 8);
+}
+```
+
+**EJ18. Mensaje del test añadido que NO PASA**
+
+```log
+java.lang.NumberFormatException: For input string: "5+4"
+```
+
+**EJ18. Código mínimo para que el test pase**
+
+Se añade otro if con el "9-5+4".
+```java
+public int parse(String expression) {
+    if(expression.equals("9-5+4")){
+        return 8;
+    }
+    if(expression.equals("7+1-5")){
+        return 3;
+    }
+    if (expression.matches("[a-zA-Z]+")) {
+        throw new IllegalArgumentException("Invalid expression");
+    }
+
+    if (expression.contains("-")) {
+        String[] tokens = expression.split("-");
+        int result = Integer.parseInt(tokens[0].trim());
+        for (int i = 1; i < tokens.length; i++) {
+            result -= Integer.parseInt(tokens[i].trim());
+        }
+        return result;
+    }
+
+    String[] tokens = expression.split("\\+");
+    int result = 0;
+    for (String token : tokens) {
+        String trimmed = token.trim();
+        if (!trimmed.matches("\\d+")) {
+            throw new IllegalArgumentException("Invalid expression");
+        }
+        result += Integer.parseInt(trimmed);
+    }
+    return result;
+}
+```
+
+**EJ18. Captura de que TODOS los test PASAN**
+
+![Pasa](Capturas/test18.png "Pasa")
+
+**EJ18. Refactorización**
+> Como solo hemos duplicado codigo 2 veces vamos a esperar a ver si duplicamos otra vez para refactorizar aplicando la regla del 3 del código duplicado. 
+
+
+<br>
+
+
+## Ejemplo 19
+
+**INPUT y OUTPUT**: "9+1-6-2" -> "2"
+
+**EJ19. Código de test**
+```java
+@Test
+public void test19(){
+    CalculatorParser calculator = new CalculatorParser();
+    assertEquals(calculator.parse("9+1-6-2"), 2);
+}
+```
+
+**EJ19. Mensaje del test añadido que NO PASA**
+
+```log
+java.lang.NumberFormatException: For input string: "9+1"
+```
+
+**EJ19. Código mínimo para que el test pase**
+
+Añadimos otro if para el nuevo caso "9+1-6-2"
+
+```java
+public int parse(String expression) {
+    if(expression.equals("9+1-6-2")){
+        return 2;
+    }
+    if(expression.equals("9-5+4")){
+        return 8;
+    }
+    if(expression.equals("7+1-5")){
+        return 3;
+    }
+    if (expression.matches("[a-zA-Z]+")) {
+        throw new IllegalArgumentException("Invalid expression");
+    }
+
+    if (expression.contains("-")) {
+        String[] tokens = expression.split("-");
+        int result = Integer.parseInt(tokens[0].trim());
+        for (int i = 1; i < tokens.length; i++) {
+            result -= Integer.parseInt(tokens[i].trim());
+        }
+        return result;
+    }
+
+    String[] tokens = expression.split("\\+");
+    int result = 0;
+    for (String token : tokens) {
+        String trimmed = token.trim();
+        if (!trimmed.matches("\\d+")) {
+            throw new IllegalArgumentException("Invalid expression");
+        }
+        result += Integer.parseInt(trimmed);
+    }
+    return result;
+}
+```
+
+**EJ19. Captura de que TODOS los test PASAN**
+
+![Pasa](Capturas/test19.png "Pasa")
+
+**EJ19. Refactorización**
+> Como ya hemos duplicado codigo 3 veces, procedemos a refactorizar el método, extrayendo el código duplicado y añadiendo la funcionalidad mixta de sumar y restar. En cuanto a los test, vamos a meter un "@beforeEach" y vamos a crear un test parametrizado para los casos de uso de las sumas.
+
+```java
+public int parse(String expression) {
+    if (expression.matches("[a-zA-Z]+")) {
+        throw new IllegalArgumentException("Invalid expression");
+    }
+
+    String[] tokens = expression.split("(?<=[-+])|(?=[-+])");
+    int result = 0;
+    String currentOperator = "+";
+    
+    for (String token : tokens) {
+        String trimmedToken = token.trim();
+        if (trimmedToken.isEmpty()) continue;
+        
+        if (trimmedToken.equals("+") || trimmedToken.equals("-")) {
+            currentOperator = trimmedToken;
+        } else {
+            if (!trimmedToken.matches("\\d+")) {
+                throw new IllegalArgumentException("Invalid expression");
+            }
+            
+            int value = Integer.parseInt(trimmedToken);
+            if (currentOperator.equals("+")) {
+                result += value;
+            } else if (currentOperator.equals("-")) {
+                result -= value;
+            }
+        }
+    }
+    return result;
+}
+```
+
+```java
+@ParameterizedTest
+@CsvSource({ "7+1-5, 3", "9-5+4, 8", "9+1-6-2, 2"})
+public void testMix(String expression, int expected) {
+    assertEquals(expected, calculator.parse(expression));
+}
+```
+**EJ19. Captura de que TODOS los tests PASAN tras la refactorización**
+
+![Pasa](Capturas/test17to19.png "Pasa")
+
+<br>
+
+
+
+## Ejemplo 20
+
+**INPUT y OUTPUT**: "-5+9" -> "4"
+
+**EJ20. Código de test**
+```java
+@Test
+public void test20(){
+    CalculatorParser parser = new CalculatorParser();
+    assertEquals(parser.parse("-5+9"), 4);
+}
+```
+
+**EJ20. Mensaje del test añadido que NO PASA**
+
+El test si que pasa con la implementación anterior.
+
+**EJ7. Código mínimo para que el test pase**
+
+Es el mismo código que el anterior.
+```java
+public int parse(String expression) {
+    if (expression.matches("[a-zA-Z]+")) {
+        throw new IllegalArgumentException("Invalid expression");
+    }
+
+    String[] tokens = expression.split("(?<=[-+])|(?=[-+])");
+    int result = 0;
+    String currentOperator = "+";
+    
+    for (String token : tokens) {
+        String trimmedToken = token.trim();
+        if (trimmedToken.isEmpty()) continue;
+        
+        if (trimmedToken.equals("+") || trimmedToken.equals("-")) {
+            currentOperator = trimmedToken;
+        } else {
+            if (!trimmedToken.matches("\\d+")) {
+                throw new IllegalArgumentException("Invalid expression");
+            }
+            
+            int value = Integer.parseInt(trimmedToken);
+            if (currentOperator.equals("+")) {
+                result += value;
+            } else if (currentOperator.equals("-")) {
+                result -= value;
+            }
+        }
+    }
+    return result;
+}
+```
+
+**EJ20. Captura de que TODOS los test PASAN**
+
+![Pasa](Capturas/test20.png "Pasa")
+
+**EJ20. Refactorización**
+> En este caso solo vamos meter el nuevo test dentro de los casos del test parametrizado de las sumas.
+
+```java
+@ParameterizedTest
+@CsvSource({ "7+1-5, 3", "9-5+4, 8", "9+1-6-2, 2", "-5+9, 4"})
+public void testMix(String expression, int expected) {
+    assertEquals(expected, calculator.parse(expression));
+}
+```
+**EJ7. Captura de que TODOS los tests PASAN tras la refactorización**
+
+![Pasa](Capturas/test17to20.png "Pasa")
+
+
+
+<br>

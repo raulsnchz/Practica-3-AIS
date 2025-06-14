@@ -7,23 +7,28 @@ public class CalculatorParser {
             throw new IllegalArgumentException("Invalid expression");
         }
 
-        if (expression.contains("-")) {
-            String[] tokens = expression.split("-");
-            int result = Integer.parseInt(tokens[0].trim());
-            for (int i = 1; i < tokens.length; i++) {
-                result -= Integer.parseInt(tokens[i].trim());
-            }
-            return result;
-        }
-
-        String[] tokens = expression.split("\\+");
+        String[] tokens = expression.split("(?<=[-+])|(?=[-+])");
         int result = 0;
+        String currentOperator = "+";
+        
         for (String token : tokens) {
-            String trimmed = token.trim();
-            if (!trimmed.matches("\\d+")) {
-                throw new IllegalArgumentException("Invalid expression");
+            String trimmedToken = token.trim();
+            if (trimmedToken.isEmpty()) continue;
+            
+            if (trimmedToken.equals("+") || trimmedToken.equals("-")) {
+                currentOperator = trimmedToken;
+            } else {
+                if (!trimmedToken.matches("\\d+")) {
+                    throw new IllegalArgumentException("Invalid expression");
+                }
+                
+                int value = Integer.parseInt(trimmedToken);
+                if (currentOperator.equals("+")) {
+                    result += value;
+                } else if (currentOperator.equals("-")) {
+                    result -= value;
+                }
             }
-            result += Integer.parseInt(trimmed);
         }
         return result;
     }
