@@ -1260,7 +1260,7 @@ public int parse(String expression) {
 ![Pasa](Capturas/test20.png "Pasa")
 
 **EJ20. Refactorización**
-> En este caso solo vamos meter el nuevo test dentro de los casos del test parametrizado de las sumas.
+> En este caso solo vamos meter el nuevo test dentro de los casos del test parametrizado de las operaciones mixtas.
 
 ```java
 @ParameterizedTest
