@@ -37,4 +37,10 @@ public class CalculatorParserTest {
         assertEquals("Invalid expression", exception.getMessage());
     }
 
+    @ParameterizedTest
+    @CsvSource({ "5-3, 2", "1-2, -1", "7-2-1, 4", "9-5-3-1, 0" })
+    public void testSubs(String expression, int expected) {
+        assertEquals(expected, calculator.parse(expression));
+    }
+
 }
