@@ -331,12 +331,12 @@ El test si que pasa con la implementación anterior.
 Es el mismo código que el anterior.
 ```java
 public int parse(String expression) {
-    expression = expression.trim();
-    if (expression.contains("+")) {
-        String[] parts = expression.split("\\+", 2);
-        return parse(parts[0]) + parse(parts[1]);
+    String[] tokens = expression.split("\\+");
+    int result = 0;
+    for (String token : tokens) {
+        result += Integer.parseInt(token.trim());
     }
-    return Integer.parseInt(expression.trim());
+    return result;
 }
 ```
 
