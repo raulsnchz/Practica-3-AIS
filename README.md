@@ -268,7 +268,7 @@ Añadimos otro if para el nuevo caso "2+3+4"
 public int parse(String expression) {
     if (expression.equals("1+1")) {
         return 2;
-    } else if (expression.equals("1+1")) {
+    } else if (expression.equals("2+3")) {
         return 5;
     } else if (expression.equals("2+3+4")) {
         return 9;
