@@ -154,30 +154,30 @@ public void testSingleNumbers(String input) {
 
 ## Ejemplo 4
 
-**INPUT y OUTPUT**: "1+1" -> "2"
+**INPUT y OUTPUT**: "1 + 1" -> "2"
 
 **EJ4. Código de test**
 ```java
 @Test
 public void test4(){
     CalculatorParser calculator = new CalculatorParser();
-    assertEquals(calculator.parse("1+1"), 2);
+    assertEquals(calculator.parse("1 + 1"), 2);
 }
 ```
 
 **EJ4. Mensaje del test añadido que NO PASA**
 
 ```log
-java.lang.NumberFormatException: For input string: "1+1"
+java.lang.NumberFormatException: For input string: "1 + 1"
 ```
 
 **EJ4. Código mínimo para que el test pase**
 
-Se añade un if con el "1+1".
+Se añade un if con el "1 + 1".
 
 ```java
 public int parse(String expression) {
-    if (expression.equals("1+1")) {
+    if (expression.equals("1 + 1")) {
         return 2;
     } else {
         return Integer.parseInt(expression);
@@ -198,31 +198,31 @@ public int parse(String expression) {
 
 ## Ejemplo 5
 
-**INPUT y OUTPUT**: "2+3" -> "5"
+**INPUT y OUTPUT**: "2 + 3" -> "5"
 
 **EJ5. Código de test**
 ```java
 @Test
 public void test5(){
     CalculatorParser calculator = new CalculatorParser();
-    assertEquals(calculator.parse("2+3"), 5);
+    assertEquals(calculator.parse("2 + 3"), 5);
 }
 ```
 
 **EJ5. Mensaje del test añadido que NO PASA**
 
 ```log
-java.lang.NumberFormatException: For input string: "2+3"
+java.lang.NumberFormatException: For input string: "2 + 3"
 ```
 
 **EJ5. Código mínimo para que el test pase**
 
-Se añade otro if con el "2+3".
+Se añade otro if con el "2 + 3".
 ```java
 public int parse(String expression) {
-    if (expression.equals("1+1")) {
+    if (expression.equals("1 + 1")) {
         return 2;
-    } else if (expression.equals("2+3")) {
+    } else if (expression.equals("2 + 3")) {
         return 5;
     } else {
         return Integer.parseInt(expression);
@@ -243,34 +243,34 @@ public int parse(String expression) {
 
 ## Ejemplo 6
 
-**INPUT y OUTPUT**: "2+3+4" -> "9"
+**INPUT y OUTPUT**: "2 + 3 + 4" -> "9"
 
 **EJ6. Código de test**
 ```java
 @Test
 public void test6(){
     CalculatorParser calculator = new CalculatorParser();
-    assertEquals(calculator.parse("2+3+4"), 9);
+    assertEquals(calculator.parse("2 + 3 + 4"), 9);
 }
 ```
 
 **EJ6. Mensaje del test añadido que NO PASA**
 
 ```log
-java.lang.NumberFormatException: For input string: "2+3+4"
+java.lang.NumberFormatException: For input string: "2 + 3 + 4"
 ```
 
 **EJ6. Código mínimo para que el test pase**
 
-Añadimos otro if para el nuevo caso "2+3+4"
+Añadimos otro if para el nuevo caso "2 + 3 + 4"
 
 ```java
 public int parse(String expression) {
-    if (expression.equals("1+1")) {
+    if (expression.equals("1 + 1")) {
         return 2;
-    } else if (expression.equals("2+3")) {
+    } else if (expression.equals("2 + 3")) {
         return 5;
-    } else if (expression.equals("2+3+4")) {
+    } else if (expression.equals("2 + 3 + 4")) {
         return 9;
     } else {
         return Integer.parseInt(expression);
@@ -298,7 +298,7 @@ public int parse(String expression) {
 
 ```java
 @ParameterizedTest
-@CsvSource({"1+1, 2" , "2+3, 5" , "2+3+4, 9"})
+@CsvSource({"1 + 1, 2" , "2 + 3, 5" , "2 + 3 + 4, 9"})
 public void testSums(String expression, int expected) {
     assertEquals(expected, calculator.parse(expression));
 }
@@ -311,14 +311,14 @@ public void testSums(String expression, int expected) {
 
 ## Ejemplo 7
 
-**INPUT y OUTPUT**: "1+2+3+4" -> "10"
+**INPUT y OUTPUT**: "1 + 2 + 3 + 4" -> "10"
 
 **EJ7. Código de test**
 ```java
 @Test
 public void test7(){
     CalculatorParser parser = new CalculatorParser();
-    assertEquals(parser.parse("1+2+3+4"), 10);
+    assertEquals(parser.parse("1 + 2 + 3 + 4"), 10);
 }
 ```
 
@@ -349,7 +349,7 @@ public int parse(String expression) {
 
 ```java
 @ParameterizedTest
-@CsvSource({"1+1, 2" , "2+3, 5" , "2+3+4, 9" , "1+2+3+4, 10"})
+@CsvSource({"1 + 1, 2" , "2 + 3, 5" , "2 + 3 + 4, 9" , "1 + 2 + 3 + 4, 10"})
 public void testSums(String expression, int expected) {
     assertEquals(expected, calculator.parse(expression));
 }
@@ -671,14 +671,14 @@ public int parse(String expression) {
 
 ## Ejemplo 13
 
-**INPUT y OUTPUT**: "5-3" -> "2"
+**INPUT y OUTPUT**: "5 - 3" -> "2"
 
 **EJ13. Código de test**
 ```java
 @Test
 public void test13(){
     CalculatorParser parser = new CalculatorParser();
-    assertEquals(parser.parse("5-3"), 2);
+    assertEquals(parser.parse("5 - 3"), 2);
 }
 ```
 
@@ -690,11 +690,11 @@ java.lang.IllegalArgumentException: Invalid expression
 
 **EJ13. Código mínimo para que el test pase**
 
-Metemos el if de "5-3".
+Metemos el if de "5 - 3".
 
 ```java
 public int parse(String expression) {
-    if (expression.equals("5-3")) {
+    if (expression.equals("5 - 3")) {
         return 2;
     }
     if (expression.matches("[a-zA-Z]+")) {
@@ -727,14 +727,14 @@ public int parse(String expression) {
 
 ## Ejemplo 14
 
-**INPUT y OUTPUT**: "1-2" -> "-1"
+**INPUT y OUTPUT**: "1 - 2" -> "-1"
 
 **EJ14. Código de test**
 ```java
 @Test
 public void test14(){
     CalculatorParser parser = new CalculatorParser();
-    assertEquals(parser.parse("1-2"), -1);
+    assertEquals(parser.parse("1 - 2"), -1);
 }
 ```
 
@@ -750,9 +750,9 @@ Añadimos otro if para el nuevo caso.
 
 ```java
 public int parse(String expression) {
-    if (expression.equals("5-3")) {
+    if (expression.equals("5 - 3")) {
         return 2;
-    } else if (expression.equals("1-2")) {
+    } else if (expression.equals("1 - 2")) {
         return -1;
     }
     if (expression.matches("[a-zA-Z]+")) {
@@ -785,14 +785,14 @@ public int parse(String expression) {
 
 ## Ejemplo 15
 
-**INPUT y OUTPUT**: "7-2-1" -> "4"
+**INPUT y OUTPUT**: "7 - 2 - 1" -> "4"
 
 **EJ15. Código de test**
 ```java
 @Test
 public void test15(){
     CalculatorParser parser = new CalculatorParser();
-    assertEquals(parser.parse("7-2-1"), 4);
+    assertEquals(parser.parse("7 - 2 - 1"), 4);
 }
 ```
 
@@ -808,11 +808,11 @@ Añadimos el if para el nuevo caso.
 
 ```java
 public int parse(String expression) {
-    if (expression.equals("5-3")) {
+    if (expression.equals("5 - 3")) {
         return 2;
-    } else if (expression.equals("1-2")) {
+    } else if (expression.equals("1 - 2")) {
         return -1;
-    } else if (expression.equals("7-2-1")) {
+    } else if (expression.equals("7 - 2 - 1")) {
         return 4;
     }
     if (expression.matches("[a-zA-Z]+")) {
@@ -867,7 +867,7 @@ public int parse(String expression) {
 ```
 ```java
 @ParameterizedTest
-@CsvSource({ "5-3, 2", "1-2, -1", "7-2-1, 4" })
+@CsvSource({ "5 - 3, 2", "1 - 2, -1", "7 - 2 - 1, 4" })
 public void testSubs(String expression, int expected) {
     assertEquals(expected, calculator.parse(expression));
 }
@@ -883,14 +883,14 @@ public void testSubs(String expression, int expected) {
 
 ## Ejemplo 16
 
-**INPUT y OUTPUT**: "9-5-3-1" -> "0"
+**INPUT y OUTPUT**: "9 - 5 - 3 - 1" -> "0"
 
 **EJ16. Código de test**
 ```java
 @Test
 public void test16(){
     CalculatorParser parser = new CalculatorParser();
-    assertEquals(parser.parse("9-5-3-1"), 0);
+    assertEquals(parser.parse("9 - 5 - 3 - 1"), 0);
 }
 ```
 
@@ -939,7 +939,7 @@ public int parse(String expression) {
 
 ```java
 @ParameterizedTest
-@CsvSource({ "5-3, 2", "1-2, -1", "7-2-1, 4", "9-5-3-1, 0" })
+@CsvSource({ "5 - 3, 2", "1 - 2, -1", "7 - 2 - 1, 4", "9 - 5 - 3 - 1, 0" })
 public void testSubs(String expression, int expected) {
     assertEquals(expected, calculator.parse(expression));
 }
@@ -956,21 +956,21 @@ public void testSubs(String expression, int expected) {
 
 ## Ejemplo 17
 
-**INPUT y OUTPUT**: "7+1-5" -> "3"
+**INPUT y OUTPUT**: "7 + 1 - 5" -> "3"
 
 **EJ17. Código de test**
 ```java
 @Test
 public void test17(){
     CalculatorParser parser = new CalculatorParser();
-    assertEquals(parser.parse("7+1-5"), 3);
+    assertEquals(parser.parse("7 + 1 - 5"), 3);
 }
 ```
 
 **EJ17. Mensaje del test añadido que NO PASA**
 
 ```log
-java.lang.NumberFormatException: For input string: "7+1"
+java.lang.NumberFormatException: For input string: "7 + 1"
 ```
 
 **EJ17. Código mínimo para que el test pase**
@@ -979,7 +979,7 @@ Se añade un if con el caso.
 
 ```java
 public int parse(String expression) {
-    if(expression.equals("7+1-5")){
+    if(expression.equals("7 + 1 - 5")){
         return 3;
     }
     if (expression.matches("[a-zA-Z]+")) {
@@ -1022,32 +1022,32 @@ public int parse(String expression) {
 
 ## Ejemplo 18
 
-**INPUT y OUTPUT**: "9-5+4" -> "8"
+**INPUT y OUTPUT**: "9 - 5 + 4" -> "8"
 
 **EJ18. Código de test**
 ```java
 @Test
 public void test18(){
     CalculatorParser parser = new CalculatorParser();
-    assertEquals(parser.parse("9-5+4"), 8);
+    assertEquals(parser.parse("9 - 5 + 4"), 8);
 }
 ```
 
 **EJ18. Mensaje del test añadido que NO PASA**
 
 ```log
-java.lang.NumberFormatException: For input string: "5+4"
+java.lang.NumberFormatException: For input string: "5 + 4"
 ```
 
 **EJ18. Código mínimo para que el test pase**
 
-Se añade otro if con el "9-5+4".
+Se añade otro if con el "9 - 5 + 4".
 ```java
 public int parse(String expression) {
-    if(expression.equals("9-5+4")){
+    if(expression.equals("9 - 5 + 4")){
         return 8;
     }
-    if(expression.equals("7+1-5")){
+    if(expression.equals("7 + 1 - 5")){
         return 3;
     }
     if (expression.matches("[a-zA-Z]+")) {
@@ -1089,36 +1089,36 @@ public int parse(String expression) {
 
 ## Ejemplo 19
 
-**INPUT y OUTPUT**: "9+1-6-2" -> "2"
+**INPUT y OUTPUT**: "9 + 1 - 6 - 2" -> "2"
 
 **EJ19. Código de test**
 ```java
 @Test
 public void test19(){
     CalculatorParser calculator = new CalculatorParser();
-    assertEquals(calculator.parse("9+1-6-2"), 2);
+    assertEquals(calculator.parse("9 + 1 - 6 - 2"), 2);
 }
 ```
 
 **EJ19. Mensaje del test añadido que NO PASA**
 
 ```log
-java.lang.NumberFormatException: For input string: "9+1"
+java.lang.NumberFormatException: For input string: "9 + 1"
 ```
 
 **EJ19. Código mínimo para que el test pase**
 
-Añadimos otro if para el nuevo caso "9+1-6-2"
+Añadimos otro if para el nuevo caso "9 + 1 - 6 - 2"
 
 ```java
 public int parse(String expression) {
-    if(expression.equals("9+1-6-2")){
+    if(expression.equals("9 + 1 - 6 - 2")){
         return 2;
     }
-    if(expression.equals("9-5+4")){
+    if(expression.equals("9 - 5 + 4")){
         return 8;
     }
-    if(expression.equals("7+1-5")){
+    if(expression.equals("7 + 1 - 5")){
         return 3;
     }
     if (expression.matches("[a-zA-Z]+")) {
@@ -1189,7 +1189,7 @@ public int parse(String expression) {
 
 ```java
 @ParameterizedTest
-@CsvSource({ "7+1-5, 3", "9-5+4, 8", "9+1-6-2, 2"})
+@CsvSource({ "7 + 1 - 5, 3", "9 - 5 + 4, 8", "9 + 1 - 6 - 2, 2"})
 public void testMix(String expression, int expected) {
     assertEquals(expected, calculator.parse(expression));
 }
@@ -1204,14 +1204,14 @@ public void testMix(String expression, int expected) {
 
 ## Ejemplo 20
 
-**INPUT y OUTPUT**: "-5+9" -> "4"
+**INPUT y OUTPUT**: "-5 + 9" -> "4"
 
 **EJ20. Código de test**
 ```java
 @Test
 public void test20(){
     CalculatorParser parser = new CalculatorParser();
-    assertEquals(parser.parse("-5+9"), 4);
+    assertEquals(parser.parse("-5 + 9"), 4);
 }
 ```
 
@@ -1264,7 +1264,7 @@ public int parse(String expression) {
 
 ```java
 @ParameterizedTest
-@CsvSource({ "7+1-5, 3", "9-5+4, 8", "9+1-6-2, 2", "-5+9, 4"})
+@CsvSource({ "7 + 1 - 5, 3", "9 - 5 + 4, 8", "9 + 1 - 6 - 2, 2", "-5 + 9, 4"})
 public void testMix(String expression, int expected) {
     assertEquals(expected, calculator.parse(expression));
 }
