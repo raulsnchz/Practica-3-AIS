@@ -1219,7 +1219,7 @@ public void test20(){
 
 El test si que pasa con la implementación anterior.
 
-**EJ7. Código mínimo para que el test pase**
+**EJ20. Código mínimo para que el test pase**
 
 Es el mismo código que el anterior.
 ```java
@@ -1269,7 +1269,7 @@ public void testMix(String expression, int expected) {
     assertEquals(expected, calculator.parse(expression));
 }
 ```
-**EJ7. Captura de que TODOS los tests PASAN tras la refactorización**
+**EJ20. Captura de que TODOS los tests PASAN tras la refactorización**
 
 ![Pasa](Capturas/test17to20.png "Pasa")
 
