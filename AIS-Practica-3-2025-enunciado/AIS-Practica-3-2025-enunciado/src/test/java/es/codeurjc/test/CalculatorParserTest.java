@@ -43,7 +43,7 @@ public class CalculatorParserTest {
     }
 
     @ParameterizedTest
-    @CsvSource({ "7+1-5, 3", "9-5+4, 8", "9+1-6-2, 2", "-5+9, 4"})
+    @CsvSource({ "7+1-5, 3", "9-5+4, 8", "9+1-6-2, 2", "-5+9, 4" })
     public void testMix(String expression, int expected) {
         assertEquals(expected, calculator.parse(expression));
     }

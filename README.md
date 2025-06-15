@@ -61,7 +61,7 @@ public void test2(){
 **EJ2. Mensaje del test añadido que NO PASA**
 
 ```log
-org.opentest4j.AssertionFailedError: expected: [2] but was: [1]
+org.opentest4j.AssertionFailedError: expected: [1] but was: [2]
 ```
 
 **EJ2. Código mínimo para que el test pase**
@@ -104,7 +104,7 @@ public void test3(){
 
 **EJ3. Mensaje del test añadido que NO PASA**
 
-org.opentest4j.AssertionFailedError: expected: [3] but was: [2]
+org.opentest4j.AssertionFailedError: expected: [2] but was: [3]
 
 **EJ3. Código mínimo para que el test pase**
 
@@ -168,7 +168,7 @@ public void test4(){
 **EJ4. Mensaje del test añadido que NO PASA**
 
 ```log
-org.opentest4j.AssertionFailedError: expected: [3] but was: [2]
+java.lang.NumberFormatException: For input string: "1+1"
 ```
 
 **EJ4. Código mínimo para que el test pase**
